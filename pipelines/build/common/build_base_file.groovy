@@ -184,6 +184,31 @@ class Builder implements Serializable {
         return overrideDocker
     }
 
+    def dockerOverride(Map<String, ?> configuration, String variant) {
+        Boolean overrideDocker = false
+        if (dockerExcludes == {}) {
+            return overrideDocker 
+        }
+
+        String stringArch = configuration.arch as String
+        String stringOs = configuration.os as String
+        String estimatedKey = stringArch + stringOs.capitalize()
+
+        if (configuration.containsKey("additionalFileNameTag")) {
+            estimatedKey = estimatedKey + "XL"
+        }
+
+        if (dockerExcludes.containsKey(estimatedKey)) {
+
+            if (dockerExcludes[estimatedKey].contains(variant)) {
+                overrideDocker = true
+            }
+
+        }
+
+        return overrideDocker
+    }
+
     def getDockerImage(Map<String, ?> configuration, String variant) {
         def dockerImageValue = ""
 

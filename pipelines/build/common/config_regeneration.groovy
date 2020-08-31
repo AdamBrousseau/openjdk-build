@@ -301,6 +301,7 @@ class Regeneration implements Serializable {
             /*
             * Stage: Check that the pipeline isn't in inprogress or queued up. Once clear, run the regeneration job
             */
+            /*
             if (jobRootDir.contains("pr-tester")) {
                 // No need to check if we're going to overwrite anything for the PR tester
                 context.println "[SUCCESS] Don't need to check if the pr-tester is running. Running regeneration job..."
@@ -350,7 +351,7 @@ class Regeneration implements Serializable {
 
                 } // end check stage
             }
-
+            */
             /*
             * Stage: Regenerate all of the job configurations by job type (i.e. jdk8u-linux-x64-hotspot
             * jdk8u-linux-x64-openj9, etc.)

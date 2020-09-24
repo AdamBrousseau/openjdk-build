@@ -61,12 +61,11 @@ then
   # Login to KeyChain
   # shellcheck disable=SC2046
   # shellcheck disable=SC2006
-  security unlock-keychain -p `cat ~/.password` login.keychain-db
-  export BUILD_ARGS="${BUILD_ARGS} --codesign-identity 'Developer ID Application: London Jamocha Community CIC'"
+  #security unlock-keychain -p `cat ~/.password` login.keychain-db
+  #export BUILD_ARGS="${BUILD_ARGS} --codesign-identity 'Developer ID Application: London Jamocha Community CIC'"
 fi
 
-echo "Run sudo and fail"
-sudo xcode-select --switch "${XCODE_SWITCH_PATH}"
+#sudo xcode-select --switch "${XCODE_SWITCH_PATH}"
 
 # Any version above 8 (11 for now due to openjdk-build#1409
 if [ "$JAVA_FEATURE_VERSION" -gt 11 ]; then

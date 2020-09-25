@@ -39,7 +39,6 @@ class Builder implements Serializable {
     String additionalConfigureArgs
     Map<String, List<String>> targetConfigurations
     Map<String, Map<String, ?>> buildConfigurations
-    Map<String, List<String>> dockerExcludes
     String scmReference
     String publishName
 
@@ -187,56 +186,27 @@ class Builder implements Serializable {
         return overrideDocker
     }
 
-    def dockerOverride(Map<String, ?> configuration, String variant) {
-        Boolean overrideDocker = false
-        if (dockerExcludes == {}) {
-            return overrideDocker 
-        }
-
-        String stringArch = configuration.arch as String
-        String stringOs = configuration.os as String
-        String estimatedKey = stringArch + stringOs.capitalize()
-
-        if (configuration.containsKey("additionalFileNameTag")) {
-            estimatedKey = estimatedKey + "XL"
-        }
-
-        if (dockerExcludes.containsKey(estimatedKey)) {
-
-            if (dockerExcludes[estimatedKey].contains(variant)) {
-                overrideDocker = true
-            }
-
-        }
-
-        return overrideDocker
-    }
-
     def getDockerImage(Map<String, ?> configuration, String variant) {
         def dockerImageValue = ""
-
-        if (configuration.containsKey("dockerImage") && !dockerOverride(configuration, variant)) {
+        if (configuration.containsKey("dockerImage")) {
             if (isMap(configuration.dockerImage)) {
                 dockerImageValue = (configuration.dockerImage as Map<String, ?>).get(variant)
             } else {
                 dockerImageValue = configuration.dockerImage
             }
         }
-
         return dockerImageValue
     }
 
     def getDockerFile(Map<String, ?> configuration, String variant) {
         def dockerFileValue = ""
-
-        if (configuration.containsKey("dockerFile") && !dockerOverride(configuration, variant)) {
+        if (configuration.containsKey("dockerFile")) {
             if (isMap(configuration.dockerFile)) {
                 dockerFileValue = (configuration.dockerFile as Map<String, ?>).get(variant)
             } else {
                 dockerFileValue = configuration.dockerFile
             }
         }
-
         return dockerFileValue
     }
 
@@ -515,7 +485,6 @@ return {
     String javaToBuild,
     Map<String, Map<String, ?>> buildConfigurations,
     String targetConfigurations,
-    String dockerExcludes,
     String enableTests,
     String enableInstallers,
     String releaseType,
@@ -532,52 +501,46 @@ return {
     def context,
     def env ->
 
-        boolean release = false
-        if (releaseType == 'Release') {
-            release = true
+    boolean release = false
+    if (releaseType == 'Release') {
+        release = true
+    }
+
+    boolean publish = false
+    if (releaseType == 'Nightly') {
+        publish = true
+    }
+
+    String publishName = '' // This is set to a timestamp later on if undefined
+    if (overridePublishName) {
+        publishName = overridePublishName
+    } else if (release) {
+        // Default to scmReference, remove any trailing "_adopt" from the tag if present
+        if (scmReference) {
+            publishName = scmReference.minus("_adopt")
         }
+    }
 
-        boolean publish = false
-        if (releaseType == 'Nightly') {
-            publish = true
-        }
-
-        String publishName = '' // This is set to a timestamp later on if undefined
-        if (overridePublishName) {
-            publishName = overridePublishName
-        } else if (release) {
-            // Default to scmReference, remove any trailing "_adopt" from the tag if present
-            if (scmReference) {
-                publishName = scmReference.minus("_adopt")
-            }
-        }
-
-        def buildsExcludeDocker = [:]
-        if (dockerExcludes != "" && dockerExcludes != null) {
-            buildsExcludeDocker = new JsonSlurper().parseText(dockerExcludes) as Map
-        }
-
-        return new Builder(
-            javaToBuild: javaToBuild,
-            buildConfigurations: buildConfigurations,
-            targetConfigurations: new JsonSlurper().parseText(targetConfigurations) as Map,
-            dockerExcludes: buildsExcludeDocker,
-            enableTests: Boolean.parseBoolean(enableTests),
-            enableInstallers: Boolean.parseBoolean(enableInstallers),
-            publish: publish,
-            release: release,
-            scmReference: scmReference,
-            publishName: publishName,
-            additionalConfigureArgs: additionalConfigureArgs,
-            scmVars: scmVars,
-            additionalBuildArgs: additionalBuildArgs,
-            overrideFileNameVersion: overrideFileNameVersion,
-            cleanWorkspaceBeforeBuild: Boolean.parseBoolean(cleanWorkspaceBeforeBuild),
-            adoptBuildNumber: adoptBuildNumber,
-            propagateFailures: Boolean.parseBoolean(propagateFailures),
-            currentBuild: currentBuild,
-            context: context,
-            env: env
-        )
-
+    return new Builder(
+        javaToBuild: javaToBuild,
+        buildConfigurations: buildConfigurations,
+        targetConfigurations: new JsonSlurper().parseText(targetConfigurations) as Map,
+        dockerExcludes: buildsExcludeDocker,
+        enableTests: Boolean.parseBoolean(enableTests),
+        enableInstallers: Boolean.parseBoolean(enableInstallers),
+        publish: publish,
+        release: release,
+        scmReference: scmReference,
+        publishName: publishName,
+        additionalConfigureArgs: additionalConfigureArgs,
+        scmVars: scmVars,
+        additionalBuildArgs: additionalBuildArgs,
+        overrideFileNameVersion: overrideFileNameVersion,
+        cleanWorkspaceBeforeBuild: Boolean.parseBoolean(cleanWorkspaceBeforeBuild),
+        adoptBuildNumber: adoptBuildNumber,
+        propagateFailures: Boolean.parseBoolean(propagateFailures),
+        currentBuild: currentBuild,
+        context: context,
+        env: env
+    )
 }

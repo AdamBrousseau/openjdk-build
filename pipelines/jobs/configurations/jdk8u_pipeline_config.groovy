@@ -29,6 +29,10 @@ class Config8 {
                         dragonwell: 'pipelines/build/dockerFiles/dragonwell.dockerfile'
                 ],
                 test                 : 'default',
+                dockerNode          : [
+                        hotspot       : 'dockernodetesthotspot',
+                        openj9        : 'dockernodetestopenj9',
+                ],
                 configureArgs       : [
                         "openj9"      : '--enable-jitserver',
                         "dragonwell"  : '--enable-jfr --enable-unlimited-crypto --with-jvm-variants=server  --with-zlib=system',

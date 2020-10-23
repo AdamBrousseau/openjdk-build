@@ -10,7 +10,7 @@ class Config17 {
                 ],
                 configureArgs       : '--enable-dtrace'
         ],
-        
+
         x64MacXL    : [
                 os                   : 'mac',
                 arch                 : 'x64',
@@ -35,14 +35,14 @@ class Config17 {
                         weekly : ['sanity.openjdk', 'sanity.system', 'extended.system', 'sanity.perf', 'sanity.external', 'special.functional']
                 ],
                 additionalTestLabels: [
-                        openj9      : '!(centos6||rhel6)'
+                        openj9      : '!(sw.os.cent.6||sw.os.rhel.6)'
                 ],
                 configureArgs       : [
                         "openj9"      : '--enable-dtrace --enable-jitserver',
                         "hotspot"     : '--enable-dtrace'
                 ]
         ],
-        
+
         x64LinuxXL  : [
                 os                   : 'linux',
                 arch                 : 'x64',
@@ -52,7 +52,7 @@ class Config17 {
                 ],
                 test                 : 'default',
                 additionalTestLabels: [
-                        openj9      : '!(centos6||rhel6)'
+                        openj9      : '!(sw.os.cent.6||sw.os.rhel.6)'
                 ],
                 additionalFileNameTag: "linuxXL",
                 configureArgs        : '--with-noncompressedrefs --enable-dtrace --enable-jitserver'

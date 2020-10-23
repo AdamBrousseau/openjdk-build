@@ -29,7 +29,7 @@ class Config15 {
                 ],
                 test                : 'default',
                 additionalTestLabels: [
-                        openj9      : '!(centos6||rhel6)'
+                        openj9      : '!(sw.os.cent.6||sw.os.rhel.6)'
                 ],
                 configureArgs       : [
                         "openj9"      : '--enable-dtrace --enable-jitserver',
@@ -46,7 +46,7 @@ class Config15 {
                 ],
                 test                : 'default',
                 additionalTestLabels: [
-                        openj9      : '!(centos6||rhel6)'
+                        openj9      : '!(sw.os.cent.6||sw.os.rhel.6)'
                 ],
                 additionalFileNameTag: "linuxXL",
                 configureArgs       : '--with-noncompressedrefs --enable-dtrace --enable-jitserver'

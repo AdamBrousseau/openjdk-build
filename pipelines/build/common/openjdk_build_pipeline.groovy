@@ -1071,7 +1071,8 @@ class Build {
                 // Sign and archive jobs if needed
                 try {
                     context.timeout(time: buildTimeouts.SIGN_JOB_TIMEOUT, unit: "HOURS") {
-                        sign(versionInfo)
+                        //sign(versionInfo)
+                        context.println "SKIP SIGNING"
                     }
                 } catch (FlowInterruptedException e) {
                     context.println "[ERROR] Sign job timeout (${buildTimeouts.SIGN_JOB_TIMEOUT} HOURS) has been reached. Exiting..."

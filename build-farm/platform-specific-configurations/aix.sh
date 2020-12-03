@@ -119,3 +119,5 @@ if [ "$JAVA_FEATURE_VERSION" -ge 14 ]; then
 else
   export CONFIGURE_ARGS_FOR_ANY_PLATFORM="${CONFIGURE_ARGS_FOR_ANY_PLATFORM} --with-memory-size=10000"
 fi
+
+printenv

@@ -24,7 +24,7 @@ class Config8 {
                 dockerFile: [
                         openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile'
                 ],
-                docker_node         : 'sw.tool.docker',
+                dockerNode         : 'sw.tool.docker',
                 test                 : 'default',
                 configureArgs       : [
                         "openj9"      : '--enable-jitserver'
@@ -37,7 +37,7 @@ class Config8 {
                 dockerFile: [
                         openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile'
                 ],
-                docker_node         : 'sw.tool.docker',
+                dockerNode         : 'sw.tool.docker',
                 arch                 : 'x64',
                 additionalNodeLabels : 'ci.project.openj9 && hw.arch.x86 && sw.os.linux',
                 additionalFileNameTag: "linuxXL",
@@ -115,7 +115,7 @@ class Config8 {
                 arch                : 'aarch64',
                 additionalNodeLabels : 'ci.project.openj9 && hw.arch.x86 && sw.os.linux',
                 dockerImage         : 'adoptopenjdk/centos7_build_image',
-                docker_node         : 'sw.tool.docker',
+                dockerNode         : 'sw.tool.docker',
                 test                 : 'default'
         ]
   ]

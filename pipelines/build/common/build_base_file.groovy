@@ -148,7 +148,7 @@ class Builder implements Serializable {
             TEST_LIST: testList,
             SCM_REF: scmReference,
             BUILD_ARGS: buildArgs,
-            NODE_LABEL: "${additionalNodeLabels}&&${platformConfig.os}&&${archLabel}",
+            NODE_LABEL: "${additionalNodeLabels}",
             ADDITIONAL_TEST_LABEL: "${additionalTestLabels}",
             KEEP_TEST_REPORTDIR: keepTestReportDir,
             ACTIVE_NODE_TIMEOUT: activeNodeTimeout,

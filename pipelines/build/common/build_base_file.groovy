@@ -319,7 +319,7 @@ class Builder implements Serializable {
     This builds up a node param string that defines what nodes are eligible to run the given job.
     */
     def formAdditionalBuildNodeLabels(Map<String, ?> configuration, String variant) {
-        def buildTag = "build"
+        def buildTag = "ci.role.build"
         def labels = "${buildTag}"
 
         if (configuration.containsKey("additionalNodeLabels")) {

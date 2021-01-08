@@ -437,7 +437,7 @@ class Build {
         if (versionData.major == 8) {
             buildNumber = String.format("%02d", versionData.build)
         }
-        
+
         def INSTALLER_ARCH = "${buildConfig.ARCHITECTURE}"
         // Wix toolset requires aarch64 builds to be called arm64
         if (buildConfig.ARCHITECTURE == "aarch64") {
@@ -993,7 +993,7 @@ class Build {
             } finally {
                 // post-build workspace clean:
                 //   AIX due to limited ram drive space
-                //   s390x due to limited available disk space on Marist nodes 
+                //   s390x due to limited available disk space on Marist nodes
                 if (buildConfig.TARGET_OS == "aix" || buildConfig.ARCHITECTURE == "s390x") {
                     try {
                         context.timeout(time: buildTimeouts.AIX_CLEAN_TIMEOUT, unit: "HOURS") {
@@ -1072,7 +1072,7 @@ class Build {
 
                 context.stage("queue") {
                     /* This loads the library containing two Helper classes, and causes them to be
-                    imported/updated from their repo. Without the library being imported here, runTests 
+                    imported/updated from their repo. Without the library being imported here, runTests
                     method will fail to execute the post-build test jobs for reasons unknown.
                     */
                     context.library(identifier: 'openjdk-jenkins-helper@master')

@@ -113,7 +113,7 @@ class Config8 {
         aarch64Linux  : [
                 os                  : 'linux',
                 arch                : 'aarch64',
-                additionalNodeLabels : 'ci.project.openj9 && hw.arch.x86 && sw.os.linux',
+                additionalNodeLabels : 'ci.project.openj9 && hw.arch.aarch64 && sw.os.linux',
                 dockerImage         : 'adoptopenjdk/centos7_build_image',
                 dockerNode         : 'sw.tool.docker',
                 test                 : 'default'

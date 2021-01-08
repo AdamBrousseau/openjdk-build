@@ -24,7 +24,7 @@ class Config8 {
                 dockerFile: [
                         openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile'
                 ],
-                dockerNode         : 'sw.tool.docker',
+                dockerNode         : 'sw.tool.docker&&sw.config.uid1000',
                 test                 : 'default',
                 configureArgs       : [
                         "openj9"      : '--enable-jitserver'
@@ -37,7 +37,7 @@ class Config8 {
                 dockerFile: [
                         openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile'
                 ],
-                dockerNode         : 'sw.tool.docker',
+                dockerNode         : 'sw.tool.docker&&sw.config.uid1000',
                 arch                 : 'x64',
                 additionalNodeLabels : 'ci.project.openj9 && hw.arch.x86 && sw.os.linux',
                 additionalFileNameTag: "linuxXL",

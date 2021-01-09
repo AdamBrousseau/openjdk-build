@@ -72,7 +72,8 @@ class Config8 {
                 os  : 'aix',
                 arch: 'ppc64',
                 additionalNodeLabels : 'ci.project.openj9&&ci.role.build.release&&hw.arch.ppc64&&sw.os.aix.7_1',
-                test                 : 'default'
+                test                 : 'default',
+                configureArgs        : '--disable-ccache'
         ],
 
         s390xLinux    : [

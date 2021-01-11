@@ -56,12 +56,14 @@ signRelease()
     "windows")
       echo "Signing Windows release"
       signToolPath=${signToolPath:-"/cygdrive/c/Program Files (x86)/Windows Kits/10/bin/10.0.17763.0/x64/signtool.exe"}
+      echo "${signToolPath}"
 
       # Sign .exe files
       FILES=$(find . -type f -name '*.exe')
       echo "$FILES" | while read -r f;
       do
         echo "Signing ${f}"
+        echo "$signToolPath" sign /f "${SIGNING_CERTIFICATE}" /p "$SIGN_PASSWORD" /fd SHA256 /t http://timestamp.globalsign.com/scripts/timestamp.dll "$f"
         if ! "$signToolPath" sign /f "${SIGNING_CERTIFICATE}" /p "$SIGN_PASSWORD" /fd SHA256 /t http://timestamp.globalsign.com/scripts/timestamp.dll "$f"; then
           echo "RETRYWARNING: Failed to sign ${f} at $(date +%T): Possible timestamp server error - RC $? ... Retrying in 10 seconds"
           sleep 10s
@@ -74,6 +76,7 @@ signRelease()
       echo "$FILES" | while read -r f;
       do
         echo "Signing ${f}"
+        echo "$signToolPath" sign /f "${SIGNING_CERTIFICATE}" /p "$SIGN_PASSWORD" /fd SHA256 /t http://timestamp.globalsign.com/scripts/timestamp.dll "$f"
         if ! "$signToolPath" sign /f "${SIGNING_CERTIFICATE}" /p "$SIGN_PASSWORD" /fd SHA256 /t http://timestamp.globalsign.com/scripts/timestamp.dll "$f"; then
           echo "RETRYWARNING: Failed to sign ${f} at $(date +%T): Possible timestamp server error - RC $? ... Retrying in 10 seconds"
           sleep 10s

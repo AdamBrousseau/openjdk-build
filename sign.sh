@@ -66,7 +66,7 @@ signRelease()
           echo "RETRYWARNING: Failed to sign ${f} at $(date +%T): Possible timestamp server error - RC $? ... Retrying in 10 seconds"
           sleep 10s
           "$signToolPath" sign /f "${SIGNING_CERTIFICATE}" /p "$SIGN_PASSWORD" /fd SHA256 /t http://timestamp.globalsign.com/scripts/timestamp.dll "$f"
-        fi        
+        fi
       done
 
       # Sign .dll files

@@ -39,5 +39,6 @@ do
   echo "signing ${file}"
 
   # shellcheck disable=SC2086
+  echo "${SCRIPT_DIR}/../sign.sh" ${CERTIFICATE} "${file}"
   bash "${SCRIPT_DIR}/../sign.sh" ${CERTIFICATE} "${file}"
 done

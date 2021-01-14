@@ -117,7 +117,7 @@ class Config8 {
                 additionalNodeLabels : 'ci.project.openj9 && hw.arch.aarch64 && sw.os.linux',
                 dockerImage         : 'adoptopenjdk/centos7_build_image',
                 dockerNode         : 'sw.tool.docker',
-                test                 : 'default'
+                test                 : false
         ]
   ]
 

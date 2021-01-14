@@ -59,26 +59,28 @@ class Builder implements Serializable {
     def context
     def currentBuild
 
-    /* 
-    Test targets triggered in 'nightly' build pipelines running 6 days per week 
-    nightly + weekly to be run during a 'release' pipeline 
+    /*
+    Test targets triggered in 'nightly' build pipelines running 6 days per week
+    nightly + weekly to be run during a 'release' pipeline
     */
     final List<String> nightly = [
+        'sanity.functional',
         'sanity.openjdk',
         'sanity.system',
-        'extended.system',
+        'sanity.jck',
         'sanity.perf',
-        'sanity.functional',
+        'extended.system',
         'extended.functional'
     ]
-    /* 
-    Test targets triggered in 'weekly' build pipelines running once per week 
-    nightly + weekly to be run during a 'release' pipeline 
+    /*
+    Test targets triggered in 'weekly' build pipelines running once per week
+    nightly + weekly to be run during a 'release' pipeline
     */
     final List<String> weekly = [
         'extended.openjdk',
         'extended.perf',
         'special.functional',
+        'special.system',
         'sanity.external'
     ]
 
@@ -155,7 +157,7 @@ class Builder implements Serializable {
     }
 
     /*
-    Returns true if possibleMap is a Map. False otherwise. 
+    Returns true if possibleMap is a Map. False otherwise.
     */
     static def isMap(possibleMap) {
         return Map.class.isInstance(possibleMap)
@@ -180,14 +182,14 @@ class Builder implements Serializable {
 
         return ""
     }
-    
+
     /*
     Get the list of tests to run from the build configurations.
     We run different test categories depending on if this build is a release or nightly. This function parses and applies this to the individual build config.
     */
     List<String> getTestList(Map<String, ?> configuration) {
         List<String> testList = []
-        /* 
+        /*
         * No test key or key value is test: false  --- test disabled
         * Key value is test: 'default' --- nightly build trigger 'nightly' test set, release build trigger 'nightly' + 'weekly' test sets
         * Key value is test: [customized map] specified nightly and weekly test lists
@@ -204,7 +206,6 @@ class Builder implements Serializable {
                 }
 
             } else {
-                
                 // Default to the test sets declared if one isn't set in the build configuration
                 if ( testJobType == "nightly" ) {
                     testList = nightly
@@ -226,7 +227,7 @@ class Builder implements Serializable {
     def dockerOverride(Map<String, ?> configuration, String variant) {
         Boolean overrideDocker = false
         if (dockerExcludes == {}) {
-            return overrideDocker 
+            return overrideDocker
         }
 
         String stringArch = configuration.arch as String
@@ -503,7 +504,7 @@ class Builder implements Serializable {
         return true
     }
 
-    /* 
+    /*
     Call job to push artifacts to github. Usually it's only executed on a nightly build
     */
     def publishBinary() {
@@ -581,7 +582,7 @@ class Builder implements Serializable {
                         // Execute build job for configuration i.e jdk11u/job/jdk11u-linux-x64-hotspot
                         context.stage(configuration.key) {
                             context.echo "Created job " + downstreamJobName
-                            
+
                             // execute build
                             def downstreamJob = context.build job: downstreamJobName, propagate: false, parameters: config.toBuildParams()
 
@@ -599,7 +600,7 @@ class Builder implements Serializable {
                                         } catch (FlowInterruptedException e) {
                                             context.println "[ERROR] Previous artifact removal timeout (${pipelineTimeouts.REMOVE_ARTIFACTS_TIMEOUT} HOURS) for ${downstreamJobName} has been reached. Exiting..."
                                             throw new Exception()
-                                        }   
+                                        }
 
                                         try {
                                             context.timeout(time: pipelineTimeouts.COPY_ARTIFACTS_TIMEOUT, unit: "HOURS") {

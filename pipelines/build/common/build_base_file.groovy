@@ -69,14 +69,14 @@ class Builder implements Serializable {
     nightly + weekly to be run during a 'release' pipeline
     */
     final List<String> nightly = [
+        'sanity.functional',
         'sanity.openjdk',
         'sanity.system',
-        'extended.system',
+        'sanity.jck',
         'sanity.perf',
-        'sanity.functional',
+        'extended.system',
         'extended.functional'
     ]
-
     /*
     Test targets triggered in 'weekly' build pipelines running once per week
     nightly + weekly to be run during a 'release' pipeline
@@ -85,6 +85,7 @@ class Builder implements Serializable {
         'extended.openjdk',
         'extended.perf',
         'special.functional',
+        'special.system',
         'sanity.external'
     ]
 
@@ -227,7 +228,6 @@ class Builder implements Serializable {
                 }
 
             } else {
-
                 // Default to the test sets declared if one isn't set in the build configuration
                 if ( testJobType == "nightly" ) {
                     testList = nightly

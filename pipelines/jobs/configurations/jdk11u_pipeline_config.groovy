@@ -119,6 +119,7 @@ class Config11 {
                 os                  : 'linux',
                 arch                : 'aarch64',
                 dockerImage         : 'adoptopenjdk/centos7_build_image',
+                dockerNode         : 'sw.tool.docker',
                 test                : false,
                 additionalNodeLabels : 'ci.project.openj9 && hw.arch.aarch64 && sw.os.linux',
                 configureArgs       : '--enable-dtrace=auto'

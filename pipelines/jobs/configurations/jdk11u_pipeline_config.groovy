@@ -90,6 +90,7 @@ class Config11 {
                 os                  : 'linux',
                 arch                : 'aarch64',
                 dockerImage         : 'adoptopenjdk/centos7_build_image',
+                dockerNode         : 'sw.tool.docker',
                 test                : 'default',
                 additionalFileNameTag: [
                         "openj9"    : "mixedrefs"
@@ -97,8 +98,6 @@ class Config11 {
                 configureArgs       : [
                         "openj9" : '--enable-dtrace=auto --with-mixedrefs',
                 ]
-                arch                 : 'x64',
-                test                 : "default",
                 additionalNodeLabels : 'ci.project.openj9 && hw.arch.aarch64 && sw.os.linux'
         ],
 

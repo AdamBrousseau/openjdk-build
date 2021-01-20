@@ -70,7 +70,8 @@ class Builder implements Serializable {
         'sanity.jck',
         'sanity.perf',
         'extended.system',
-        'extended.functional'
+        'extended.functional',
+        'special.system'
     ]
     /*
     Test targets triggered in 'weekly' build pipelines running once per week
@@ -79,8 +80,8 @@ class Builder implements Serializable {
     final List<String> weekly = [
         'extended.openjdk',
         'extended.perf',
+        'extended.jck',
         'special.functional',
-        'special.system',
         'sanity.external'
     ]
 

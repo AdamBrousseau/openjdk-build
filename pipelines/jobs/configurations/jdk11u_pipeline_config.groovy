@@ -18,10 +18,8 @@ class Config11 {
                 arch                : 'x64',
                 additionalNodeLabels : 'ci.project.openj9 && hw.arch.x86 && sw.os.linux',
                 dockerImage         : 'adoptopenjdk/centos6_build_image',
-                dockerFile: [
-                        openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile'
-                ],
-                dockerNode         : 'sw.tool.docker&&sw.config.uid1000',
+                dockerFile          : 'pipelines/build/dockerFiles/cuda.dockerfile',
+                dockerNode          : 'sw.tool.docker&&sw.config.uid1000',
                 test                : 'default',
                 additionalFileNameTag: [
                         "openj9"    : "mixedrefs"
@@ -68,8 +66,7 @@ class Config11 {
                 configureArgs       : [
                         "openj9"      : '--enable-dtrace=auto --with-mixedrefs'
                 ],
-                additionalNodeLabels : 'ci.project.openj9&&ci.role.build.release&&hw.arch.s390x&&(sw.os.cent.7||sw.os.rhel.7)',
-
+                additionalNodeLabels : 'ci.project.openj9&&ci.role.build.release&&hw.arch.s390x&&(sw.os.cent.7||sw.os.rhel.7)'
         ],
 
         ppc64leLinux    : [
@@ -108,7 +105,7 @@ class Config11 {
                 arch                 : 'riscv64',
                 crossCompile         : 'x64',
                 buildArgs            : '--cross-compile',
-                configureArgs        : '--disable-ddr --openjdk-target=riscv64-unknown-linux-gnu --with-sysroot=/opt/fedora28_riscv_root',
+                configureArgs        : '--disable-ddr --openjdk-target=riscv64-unknown-linux-gnu --with-sysroot=/opt/fedora28_riscv_root --with-mixedrefs',
                 test                : false
         ]
   ]

@@ -17,6 +17,7 @@ class Config11 {
                 os                  : 'linux',
                 arch                : 'x64',
                 additionalNodeLabels : 'ci.project.openj9 && hw.arch.x86 && sw.os.linux',
+                additionalFileNameTag: "mixedrefs",
                 dockerImage         : 'adoptopenjdk/centos6_build_image',
                 dockerFile          : 'pipelines/build/dockerFiles/cuda.dockerfile',
                 dockerNode          : 'sw.tool.docker&&sw.config.uid1000',
@@ -80,7 +81,6 @@ class Config11 {
                 configureArgs       : [
                         "openj9"      : '--enable-dtrace=auto --enable-jitserver --with-mixedrefs'
                 ]
-
         ],
 
         aarch64Linux    : [
@@ -106,6 +106,7 @@ class Config11 {
                 crossCompile         : 'x64',
                 buildArgs            : '--cross-compile',
                 configureArgs        : '--disable-ddr --openjdk-target=riscv64-unknown-linux-gnu --with-sysroot=/opt/fedora28_riscv_root --with-mixedrefs',
+                additionalFileNameTag: "mixedrefs",
                 test                : false
         ]
   ]

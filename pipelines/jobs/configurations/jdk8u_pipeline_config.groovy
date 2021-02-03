@@ -74,6 +74,7 @@ class Config8 {
                 additionalNodeLabels : 'ci.project.openj9&&ci.role.build.release&&hw.arch.ppc64&&sw.os.aix.7_1',
                 test                 : 'default',
                 configureArgs        : '--disable-ccache'
+                cleanWorkspaceAfterBuild: true
         ],
 
         s390xLinux    : [

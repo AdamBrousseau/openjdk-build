@@ -221,7 +221,6 @@ class Builder implements Serializable {
             }
 
             if (isMap(configuration.test)) {
-
                 if ( testJobType == "nightly" ) {
                     testList = (configuration.test as Map).get("nightly") as List<String>
                 } else {

@@ -4,16 +4,10 @@ class Config8 {
                 os                  : 'mac',
                 arch                : 'x64',
                 additionalNodeLabels: 'ci.project.openj9 && ci.role.build && hw.arch.x86 && sw.os.osx.10_14',
+                additionalFileNameTag: [
+                        "openj9"    : "mixedrefs"
+                ],
                 test                : 'default'
-        ],
-
-        x64MacXL      : [
-                os                   : 'mac',
-                arch                 : 'x64',
-                test                 : 'default',
-                additionalFileNameTag: "macosXL",
-                additionalNodeLabels : 'ci.project.openj9 && ci.role.build && hw.arch.x86 && sw.os.osx.10_14',
-                configureArgs        : '--with-noncompressedrefs'
         ],
 
         x64Linux      : [
@@ -26,23 +20,12 @@ class Config8 {
                 ],
                 dockerNode         : 'sw.tool.docker&&sw.config.uid1000',
                 test                 : 'default',
-                configureArgs       : [
-                        "openj9"      : '--enable-jitserver'
-                ]
-        ],
-
-        x64LinuxXL       : [
-                os                   : 'linux',
-                dockerImage          : 'adoptopenjdk/centos6_build_image',
-                dockerFile: [
-                        openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile'
+                additionalFileNameTag: [
+                        "openj9"    : "mixedrefs"
                 ],
-                dockerNode         : 'sw.tool.docker&&sw.config.uid1000',
-                arch                 : 'x64',
-                additionalNodeLabels : 'ci.project.openj9 && hw.arch.x86 && sw.os.linux',
-                additionalFileNameTag: "linuxXL",
-                configureArgs        : '--with-noncompressedrefs --enable-jitserver',
-                test                 : 'default'
+                configureArgs       : [
+                        "openj9"      : '--enable-jitserver --with-mixedrefs'
+                ]
         ],
 
         x64Windows    : [
@@ -52,7 +35,7 @@ class Config8 {
                 test                 : 'default'
         ],
 
-        x64WindowsXL    : [
+        x64WindowsXL: [
                 os                   : 'windows',
                 arch                 : 'x64',
                 additionalNodeLabels : 'ci.project.openj9&&sw.os.windows&&ci.role.build.release',
@@ -73,7 +56,10 @@ class Config8 {
                 arch: 'ppc64',
                 additionalNodeLabels : 'ci.project.openj9&&ci.role.build.release&&hw.arch.ppc64&&sw.os.aix.7_1',
                 test                 : 'default',
-                configureArgs        : '--disable-ccache'
+                configureArgs        : '--disable-ccache --with-mixedrefs',
+                additionalFileNameTag: [
+                        "openj9"    : "mixedrefs"
+                ],
                 cleanWorkspaceAfterBuild: true
         ],
 
@@ -81,16 +67,11 @@ class Config8 {
                 os  : 'linux',
                 arch: 's390x',
                 additionalNodeLabels : 'ci.project.openj9&&ci.role.build.release&&hw.arch.s390x&&(sw.os.cent.7||sw.os.rhel.7)',
+                configureArgs       : '--with-mixedrefs',
+                additionalFileNameTag: [
+                        "openj9"    : "mixedrefs"
+                ],
                 test                 : 'default'
-        ],
-
-        s390xLinuxXL       : [
-                os                   : 'linux',
-                arch                 : 's390x',
-                additionalNodeLabels : 'ci.project.openj9&&ci.role.build.release&&hw.arch.s390x&&(sw.os.cent.7||sw.os.rhel.7)',
-                additionalFileNameTag: "linuxXL",
-                test                 : 'default',
-                configureArgs        : '--with-noncompressedrefs'
         ],
 
         ppc64leLinux  : [
@@ -98,18 +79,12 @@ class Config8 {
                 arch: 'ppc64le',
                 additionalNodeLabels : 'ci.project.openj9&&ci.role.build.release&&hw.arch.ppc64le&&(sw.os.cent.7||sw.os.rhel.7)',
                 test                 : 'default',
+                additionalFileNameTag: [
+                        "openj9"    : "mixedrefs"
+                ],
                 configureArgs       : [
-                        "openj9"      : '--enable-jitserver'
+                        "openj9"      : '--enable-jitserver --with-mixedrefs'
                 ]
-        ],
-
-        ppc64leLinuxXL       : [
-                os                   : 'linux',
-                arch                 : 'ppc64le',
-                additionalFileNameTag: "linuxXL",
-                additionalNodeLabels : 'ci.project.openj9&&ci.role.build.release&&hw.arch.ppc64le&&(sw.os.cent.7||sw.os.rhel.7)',
-                test                 : 'default',
-                configureArgs        : '--with-noncompressedrefs --enable-jitserver'
         ],
 
         aarch64Linux  : [
@@ -118,6 +93,10 @@ class Config8 {
                 additionalNodeLabels : 'ci.project.openj9 && hw.arch.aarch64 && sw.os.linux',
                 dockerImage         : 'adoptopenjdk/centos7_build_image',
                 dockerNode         : 'sw.tool.docker',
+                configureArgs       : '--with-mixedrefs',
+                additionalFileNameTag: [
+                        "openj9"    : "mixedrefs"
+                ],
                 test                 : false
         ]
   ]

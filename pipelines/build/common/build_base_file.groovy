@@ -75,8 +75,7 @@ class Builder implements Serializable {
         'sanity.jck',
         'sanity.perf',
         'extended.system',
-        'extended.functional',
-        'special.system'
+        'extended.functional'
     ]
     /*
     Test targets triggered in 'weekly' build pipelines running once per week
@@ -87,6 +86,7 @@ class Builder implements Serializable {
         'extended.perf',
         'extended.jck',
         'special.functional',
+        'special.system',
         'sanity.external'
     ]
 

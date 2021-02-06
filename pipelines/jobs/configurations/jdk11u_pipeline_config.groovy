@@ -88,7 +88,9 @@ class Config11 {
                 arch                : 'aarch64',
                 dockerImage         : 'adoptopenjdk/centos7_build_image',
                 dockerNode         : 'sw.tool.docker',
-                test                : 'default',
+                test                : [
+                        nightly: ['sanity.functional', 'sanity.openjdk']
+                ],
                 additionalFileNameTag: [
                         "openj9"    : "mixedrefs"
                 ],

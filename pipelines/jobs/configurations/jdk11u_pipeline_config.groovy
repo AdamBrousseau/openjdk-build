@@ -52,7 +52,7 @@ class Config11 {
                 additionalFileNameTag: [
                         "openj9"    : "mixedrefs"
                 ],
-                cleanWorkspaceAfterBuild: true
+                cleanWorkspaceAfterBuild: true,
                 additionalNodeLabels : 'ci.project.openj9&&ci.role.build.release&&hw.arch.ppc64&&sw.os.aix.7_1',
                 test                : 'default'
         ],
@@ -96,7 +96,7 @@ class Config11 {
                 ],
                 configureArgs       : [
                         "openj9" : '--enable-dtrace=auto --with-mixedrefs',
-                ]
+                ],
                 additionalNodeLabels : 'ci.project.openj9 && hw.arch.aarch64 && sw.os.linux'
         ],
 

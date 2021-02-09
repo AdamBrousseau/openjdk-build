@@ -34,16 +34,11 @@ class Config16 {
                 os                  : 'windows',
                 arch                : 'x64',
                 additionalNodeLabels : 'ci.project.openj9&&sw.os.windows&&ci.role.build.release',
+                configureArgs       : [
+                        "openj9"      : '--with-mixedrefs'
+                ],
+                additionalFileNameTag: "mixedrefs",
                 test                : 'default'
-        ],
-
-        x64WindowsXL: [
-                os                   : 'windows',
-                arch                 : 'x64',
-                additionalNodeLabels : 'ci.project.openj9&&sw.os.windows&&ci.role.build.release',
-                test                 : 'default',
-                additionalFileNameTag: "windowsXL",
-                configureArgs        : '--with-noncompressedrefs'
         ],
 
         ppc64Aix    : [

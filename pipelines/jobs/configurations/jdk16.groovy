@@ -32,6 +32,9 @@ targetConfigurations = [
         "s390xLinux"  : [
                 "openj9"
         ],
+        "s390xLinuxXL"  : [
+                "openj9"
+        ],
         "aarch64Linux": [
                 "openj9"
         ]

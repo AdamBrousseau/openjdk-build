@@ -46,6 +46,10 @@ class Config16 {
                 arch                : 'ppc64',
                 cleanWorkspaceAfterBuild: true,
                 additionalNodeLabels : 'ci.project.openj9&&ci.role.build.release&&hw.arch.ppc64&&sw.os.aix.7_1',
+                configureArgs       : [
+                        "openj9"      : '--with-mixedrefs'
+                ],
+                additionalFileNameTag: "mixedrefs",
                 test                : 'default'
         ],
 

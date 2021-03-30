@@ -255,7 +255,11 @@ checkoutRequiredCodeToBuild() {
 setGitCloneArguments() {
   cd "${BUILD_CONFIG[WORKSPACE_DIR]}"
   local git_remote_repo_address="${BUILD_CONFIG[REPOSITORY]}.git"
+<<<<<<< HEAD
   # shellcheck disable=SC2206
+=======
+
+>>>>>>> 038e89a (Remove quotes from BUILD_CONFIG[SHALLOW_CLONE_OPTION])
   GIT_CLONE_ARGUMENTS=(${BUILD_CONFIG[SHALLOW_CLONE_OPTION]} "$git_remote_repo_address" "${BUILD_CONFIG[WORKSPACE_DIR]}/${BUILD_CONFIG[WORKING_DIR]}/${BUILD_CONFIG[OPENJDK_SOURCE_DIR]}")
 }
 

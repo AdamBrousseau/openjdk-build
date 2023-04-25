@@ -88,6 +88,7 @@ signRelease()
             rm -rf "${dir}/unsigned_${file}"
           else
             STAMPED=false
+            echo "Sign Servers: ${TIMESTAMPSERVERS}"
             for SERVER in $TIMESTAMPSERVERS; do
               if [ "$STAMPED" = "false" ]; then
                 echo "Signing $f using $SERVER"

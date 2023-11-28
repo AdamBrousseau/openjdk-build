@@ -1966,7 +1966,14 @@ addJ9Tag() {
   # This code makes sure that a version number is always present in the release file i.e. openj9-0.21.0
   local j9Location="${BUILD_CONFIG[WORKSPACE_DIR]}/${BUILD_CONFIG[WORKING_DIR]}/${BUILD_CONFIG[OPENJDK_SOURCE_DIR]}/openj9"
   # Pull the tag associated with the J9 commit being used
-  J9_TAG=$(git -C $j9Location describe --abbrev=0)
+  # Only use a tag if it is the current commit, otherwise use PARAM
+  echo "TAG:${TAG}"
+  printenv
+  if git -C $j9Location describe --exact-match; then
+    J9_TAG=$(git -C $j9Location describe --abbrev=0)
+  else
+    J9_TAG="${TAG}"
+  fi
   # shellcheck disable=SC2086
   if [ ${BUILD_CONFIG[RELEASE]} = false ]; then
     echo -e OPENJ9_TAG=\"$J9_TAG\" >> release

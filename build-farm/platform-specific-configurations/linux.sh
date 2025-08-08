@@ -329,7 +329,13 @@ else
     export LD_LIBRARY_PATH=/usr/local/gcc11/lib64:/usr/local/gcc11/lib
   elif [ -r /usr/local/gcc13/bin/gcc-13.2 ] && [ "${ARCHITECTURE}" != "aarch64" ] && [ "${VARIANT}" == "${BUILD_VARIANT_OPENJ9}" ] ; then
     # For OpenJ9 use gcc 13.2 except on aarch64 Linux, due to https://github.com/eclipse-openj9/openj9/issues/15390
-    export PATH=/usr/local/gcc13/bin:$PATH
+    if [ "$JAVA_FEATURE_VERSION" -eq 11 ] || [ "$JAVA_FEATURE_VERSION" -eq 8 ] ; then
+      # Temp workaround. CentOS6 gcc13 binary doesn't container binutils. Adopt/infra#123.
+      # Point at gcc11 PATH for now on jdk8,11 (centos6) to pickup binutils from gcc11.
+      export PATH=/usr/local/gcc11/bin:$PATH
+    else
+      export PATH=/usr/local/gcc13/bin:$PATH
+    fi
     [ -r /usr/local/gcc13/bin/gcc-13.2 ] && export  CC=/usr/local/gcc13/bin/gcc-13.2
     [ -r /usr/local/gcc13/bin/g++-13.2 ] && export CXX=/usr/local/gcc13/bin/g++-13.2
     export LD_LIBRARY_PATH=/usr/local/gcc13/lib64:/usr/local/gcc13/lib
